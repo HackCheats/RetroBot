@@ -183,7 +183,7 @@ namespace PoGo.RetroBot.Logic
 
         public void checkProxy(ITranslation translator)
         {
-            using (var tempWebClient = new NecroWebClient())
+            using (var tempWebClient = new RetroWebClient())
             {
                 string unproxiedIP = WebClientExtensions.DownloadString(tempWebClient, new Uri("https://api.ipify.org/?format=text"));
                 if (UseProxy)

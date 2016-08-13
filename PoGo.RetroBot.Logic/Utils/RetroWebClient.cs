@@ -3,7 +3,7 @@ using System.Net;
 
 namespace PoGo.RetroBot.Logic.Utils
 {
-    public class NecroWebClient : WebClient
+    public class RetroWebClient : WebClient
     {
         protected override WebRequest GetWebRequest(Uri uri)
         {

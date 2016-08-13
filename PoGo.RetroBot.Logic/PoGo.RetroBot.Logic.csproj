@@ -212,7 +212,7 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Utils\JitterUtils.cs" />
     <Compile Include="Utils\LocationUtils.cs" />
-    <Compile Include="Utils\NecroWebClient.cs">
+    <Compile Include="Utils\RetroWebClient.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Statistics.cs" />

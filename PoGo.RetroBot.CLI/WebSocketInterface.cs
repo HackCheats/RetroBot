@@ -34,12 +34,12 @@ namespace PoGo.RetroBot.CLI
             _websocketHandler = WebSocketEventManager.CreateInstance();
             var config = new ServerConfig
             {
-                Name = "NecroWebSocket",
+                Name = "RetroWebSocket",
                 Mode = SocketMode.Tcp,
                 Certificate = new CertificateConfig
                 {
                     FilePath = @"cert.pfx",
-                    Password = "necro"
+                    Password = "retro"
                 },
             };
             config.Listeners = new List<ListenerConfig>

@@ -177,7 +177,7 @@ namespace PoGo.RetroBot.Logic.State
 
         private static string DownloadServerVersion()
         {
-            using (var wC = new NecroWebClient())
+            using (var wC = new RetroWebClient())
             {
                 return wC.DownloadString(VersionUri);
             }
