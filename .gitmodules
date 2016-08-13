@@ -1,0 +1,7 @@
+[submodule "RetroBot-Rocket-API"]
+	path = RetroBot-Rocket-API
+	url = https://github.com/HackCheats/RetroBot-Rocket-API.git
+	branch = master
+[submodule "POGOProtos"]
+	path = POGOProtos
+	url = https://github.com/HackCheats/POGOProtos-0.31.0.git
