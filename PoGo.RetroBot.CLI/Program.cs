@@ -1,4 +1,4 @@
-﻿#region using directives
+#region using directives
 
 using System;
 using System.Globalization;
@@ -120,9 +120,7 @@ namespace PoGo.RetroBot.CLI
 
             session.Client.ApiFailure = new ApiFailureStrategy(session);
             ProgressBar.fill(20);
-
-            //Initialize Encryption-Service
-            Encryption.InitializeEncryption();
+            RetroBot_Network_Logic.Encryption.InitializeEncryption();
 
             /*SimpleSession session = new SimpleSession
             {
@@ -147,7 +145,7 @@ namespace PoGo.RetroBot.CLI
             string strVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
             stats.DirtyEvent +=
                 () =>
-                    Console.Title = $"[Necrobot v{strVersion}] " +
+                    Console.Title = $"[Retrobot v{strVersion}] " +
                         stats.GetTemplatedStats(
                             session.Translation.GetTranslation(TranslationString.StatsTemplateString),
                             session.Translation.GetTranslation(TranslationString.StatsXpTemplateString));
