@@ -95,34 +95,27 @@ namespace PoGo.RetroBot.Logic
 
             var pokemonToTransfer = myPokemonList.Where(p => !pokemonsNotToTransfer.Contains(p.PokemonId) && p.DeployedFortId == string.Empty && p.Favorite == 0).ToList();
 
-            try
-            {
-                pokemonToTransfer =
-                    pokemonToTransfer.Where(
-                        p =>
-                        {
-                            var pokemonTransferFilter = GetPokemonTransferFilter(p.PokemonId);
+            pokemonToTransfer =
+                pokemonToTransfer.Where(
+                    p =>
+                    {
+                        var pokemonTransferFilter = GetPokemonTransferFilter(p.PokemonId);
 
-                            return !pokemonTransferFilter.MovesOperator.BoolFunc(
-                                        pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
-                                                pokemonTransferFilter.MovesOperator.InverseBool(pokemonTransferFilter.Moves.Count > 0),
-                                                pokemonTransferFilter.Moves.Any(moveset =>
-                                                    pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
-                                                        pokemonTransferFilter.MovesOperator.InverseBool(moveset.Count > 0), 
-                                                        moveset.Intersect(new[] { p.Move1, p.Move2 }).Count() == Math.Max(Math.Min(moveset.Count, 2),0)))),
-                                        pokemonTransferFilter.KeepMinOperator.BoolFunc(
-                                            p.Cp >= pokemonTransferFilter.KeepMinCp,
-                                            PokemonInfo.CalculatePokemonPerfection(p) >= pokemonTransferFilter.KeepMinIvPercentage,
-                                            pokemonTransferFilter.KeepMinOperator.ReverseBoolFunc(
-                                                pokemonTransferFilter.KeepMinOperator.InverseBool(pokemonTransferFilter.UseKeepMinLvl),
-                                                PokemonInfo.GetLevel(p) >= pokemonTransferFilter.KeepMinLvl)));
+                        return !pokemonTransferFilter.MovesOperator.BoolFunc(
+                                    pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
+                                            pokemonTransferFilter.MovesOperator.InverseBool(pokemonTransferFilter.Moves.Count > 0),
+                                            pokemonTransferFilter.Moves.Any(moveset =>
+                                                pokemonTransferFilter.MovesOperator.ReverseBoolFunc(
+                                                    pokemonTransferFilter.MovesOperator.InverseBool(moveset.Count > 0), 
+                                                    moveset.Intersect(new[] { p.Move1, p.Move2 }).Count() == Math.Max(Math.Min(moveset.Count, 2),0)))),
+                                    pokemonTransferFilter.KeepMinOperator.BoolFunc(
+                                        p.Cp >= pokemonTransferFilter.KeepMinCp,
+                                        PokemonInfo.CalculatePokemonPerfection(p) >= pokemonTransferFilter.KeepMinIvPercentage,
+                                        pokemonTransferFilter.KeepMinOperator.ReverseBoolFunc(
+                                            pokemonTransferFilter.KeepMinOperator.InverseBool(pokemonTransferFilter.UseKeepMinLvl),
+                                            PokemonInfo.GetLevel(p) >= pokemonTransferFilter.KeepMinLvl)));
 
-                        }).ToList();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+                    }).ToList();
             
             var myPokemonSettings = await GetPokemonSettings();
             var pokemonSettings = myPokemonSettings.ToList();
