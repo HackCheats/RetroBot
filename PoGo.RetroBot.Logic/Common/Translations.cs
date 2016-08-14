@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
@@ -893,9 +894,9 @@ namespace PoGo.RetroBot.Logic.Common
                     Logger.Write($"[ERROR] Issue loading translations: {ex.ToString()}", LogLevel.Warning);
                     Logger.Write("[Request] Rebuild the translations folder? Y/N");
 
-                    string strInput = Console.ReadLine().ToLower();
+                    string strInput = Console.ReadLine()?.ToLower(CultureInfo.InvariantCulture);
 
-                    if (strInput.Equals("y"))
+                    if( strInput == "y")
                     {
                         // Currently this section can only rebuild the EN translations file \\
                         // This is because default values cannot be supplied from other languages \\
