@@ -39,7 +39,7 @@ namespace PoGo.RetroBot.CLI
                 Certificate = new CertificateConfig
                 {
                     FilePath = @"cert.pfx",
-                    Password = "retro"
+                    Password = "retrobot"
                 },
             };
             config.Listeners = new List<ListenerConfig>
@@ -95,7 +95,17 @@ namespace PoGo.RetroBot.CLI
 
         private async void HandleMessage(WebSocketSession session, string message)
         {
-            switch(message)
+            Models.SocketMessage msgObj;
+            var command = message;
+            Console.WriteLine(message);
+            try
+            {
+                msgObj = JsonConvert.DeserializeObject<Models.SocketMessage>(message);
+                command = msgObj.Command;
+            }
+            catch { }
+
+            switch (command)
             {
                 case "PokemonList":
                     await PokemonListTask.Execute(_session);
@@ -106,9 +116,12 @@ namespace PoGo.RetroBot.CLI
                 case "InventoryList":
                     await InventoryListTask.Execute(_session);
                     break;
+                case "PlayerStats":
+                    await PlayerStatsTask.Execute(_session);
+                    break;
             }
 
-            // Setup to only send data back to the session that requested it. 
+            // Setup to only send data back to the session that requested it.
             try
             {
                 dynamic decodedMessage = JObject.Parse(message);

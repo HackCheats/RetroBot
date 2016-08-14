@@ -96,7 +96,7 @@ namespace PoGo.RetroBot.Logic.Tasks
                 var randomMax = (int)(WalkingSpeed * (1 + randomFactor));
                 var RandomWalkSpeed = RandomDevice.Next(randomMin, randomMax);
                 cancellationToken.ThrowIfCancellationRequested();
-                session.EventDispatcher.Send(new FortTargetEvent {Name = fortInfo.Name, Distance = distance});
+                session.EventDispatcher.Send(new FortTargetEvent { Id = fortInfo.FortId, Name = fortInfo.Name, Distance = distance,Latitude = fortInfo.Latitude, Longitude = fortInfo.Longitude, Description = fortInfo.Description, url = fortInfo.ImageUrls[0] });
 
                     await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
                     RandomWalkSpeed,
@@ -176,7 +176,9 @@ namespace PoGo.RetroBot.Logic.Tasks
                             Items = StringUtils.GetSummedFriendlyNameOfItemAwardList(fortSearch.ItemsAwarded),
                             Latitude = pokeStop.Latitude,
                             Longitude = pokeStop.Longitude,
-                            InventoryFull = fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull
+                            InventoryFull = fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull,
+                            Description = fortInfo.Description,
+                            url = fortInfo.ImageUrls[0]
                         });
 
                         if ( fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull )
