@@ -74,7 +74,7 @@ namespace PoGo.RetroBot.Logic
 
         private async Task<GetInventoryResponse> GetCachedInventory()
         {
-            if (_player==null) GetPlayerData();
+            if (_player==null) await GetPlayerData();
             var now = DateTime.UtcNow;
 
             if (_cachedInventory!=null && _lastRefresh.AddSeconds(30).Ticks > now.Ticks)
@@ -234,13 +234,13 @@ namespace PoGo.RetroBot.Logic
                 .FirstOrDefault();
         }
 
-        public int GetStarDust()
+        public async Task<int> GetStarDust()
         {
-            GetPlayerData();
+            await GetPlayerData();
             return _player.PlayerData.Currencies[1].Amount;
         }
 
-        public async void GetPlayerData()
+        public async Task GetPlayerData()
         {
             _player = await _client.Player.GetPlayer();
         }

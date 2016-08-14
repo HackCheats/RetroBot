@@ -24,7 +24,7 @@ namespace PoGo.RetroBot.Logic.Tasks
 
             await session.Inventory.RefreshCachedInventory();
 
-            if (session.Inventory.GetStarDust() <= session.LogicSettings.GetMinStarDustForLevelUp)
+            if (await session.Inventory.GetStarDust() <= session.LogicSettings.GetMinStarDustForLevelUp)
                 return;
             upgradablePokemon = await session.Inventory.GetPokemonToUpgrade();
             if (session.LogicSettings.OnlyUpgradeFavorites)

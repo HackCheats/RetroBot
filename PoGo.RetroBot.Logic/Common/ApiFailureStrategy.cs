@@ -33,7 +33,7 @@ namespace PoGo.RetroBot.Logic.Common
 
             if (_retryCount % 5 == 0)
             {
-                DoLogin();
+                await DoLogin();
             }
 
             return ApiOperation.Retry;
@@ -44,7 +44,7 @@ namespace PoGo.RetroBot.Logic.Common
             _retryCount = 0;
         }
 
-        private async void DoLogin()
+        private async Task DoLogin()
         {
             try
             {
@@ -156,7 +156,7 @@ namespace PoGo.RetroBot.Logic.Common
             {
                 try
                 {
-                    DoLogin();
+                    await DoLogin();
                 }
                 catch (PtcOfflineException)
                 {
