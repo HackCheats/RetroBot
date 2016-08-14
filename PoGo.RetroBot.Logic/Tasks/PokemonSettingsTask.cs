@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PoGo.RetroBot.Logic.Event;
 using PoGo.RetroBot.Logic.PoGoUtils;
 using PoGo.RetroBot.Logic.State;
+using PoGo.RetroBot.Logic.Utils;
 
 #endregion
 

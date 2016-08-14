@@ -6,6 +6,7 @@ using PoGo.RetroBot.Logic.Event;
 using PoGo.RetroBot.Logic.State;
 using POGOProtos.Inventory.Item;
 using System;
+using PoGo.RetroBot.Logic.Utils;
 
 #endregion
 

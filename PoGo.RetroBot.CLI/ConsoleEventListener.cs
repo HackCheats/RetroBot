@@ -339,17 +339,6 @@ namespace PoGo.RetroBot.CLI
             //Logger.Write(Event1.Latitude.ToString("0.0000") + "," + Event1.Longitude.ToString("0.0000"), LogLevel.Info, force: true);
         }
 
-        private static void HandleEvent(SnipeModeEvent event1, ISession session) { }
-        private static void HandleEvent(PokeStopListEvent event1, ISession session) { }
-        private static void HandleEvent(EggsListEvent event1, ISession session) { }
-        private static void HandleEvent(InventoryListEvent event1, ISession session) { }
-        private static void HandleEvent(PokemonListEvent event1, ISession session) { }
-        private static void HandleEvent(UpdatePositionEvent Event1, ISession session)
-        {
-            //uncomment to set what happen to the character's location (during snipe double teleport)
-            //Logger.Write(Event1.Latitude.ToString("0.0000") + "," + Event1.Longitude.ToString("0.0000"), LogLevel.Info, force: true);
-        }
-
         internal void Listen(IEvent evt, ISession session)
         {
             dynamic eve = evt;

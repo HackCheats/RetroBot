@@ -1,4 +1,4 @@
-﻿using PoGo.RetroBot.Logic.State;
+using PoGo.RetroBot.Logic.State;
 using PoGo.RetroBot.Logic.Utils;
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace PoGo.RetroBot.Logic.Tasks
             var pokemonSettings = await session.Inventory.GetPokemonSettings();
             var pokemonFamilies = await session.Inventory.GetPokemonFamilies();
 
-            await session.Client.Inventory.TransferPokemon(pokemonId);
-            await session.Inventory.DeletePokemonFromInvById(pokemonId);
+            await session.Client.Inventory.TransferPokemon(id);
+            await session.Inventory.DeletePokemonFromInvById(id);
 
             var bestPokemonOfType = (session.LogicSettings.PrioritizeIvOverCp
                 ? await session.Inventory.GetHighestPokemonOfTypeByIv(pokemon)
@@ -47,6 +47,11 @@ namespace PoGo.RetroBot.Logic.Tasks
             });
 
             await DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
+        }
+
+        public static Task Execute(ISession session, ulong pokemonId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

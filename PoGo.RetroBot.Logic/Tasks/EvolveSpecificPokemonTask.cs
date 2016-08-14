@@ -1,5 +1,5 @@
-using PoGo.PokeMobBot.Logic.Event;
-using PoGo.PokeMobBot.Logic.State;
+using PoGo.RetroBot.Logic.Event;
+using PoGo.RetroBot.Logic.State;
 using PoGo.RetroBot.Logic.Utils;
 using System;
 using System.Collections.Generic;

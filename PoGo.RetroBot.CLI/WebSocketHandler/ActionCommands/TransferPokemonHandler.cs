@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using PoGo.RetroBot.Logic.State;
 using SuperSocket.WebSocket;
 
