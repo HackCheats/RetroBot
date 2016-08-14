@@ -14,7 +14,7 @@ using PoGo.RetroBot.Logic.Logging;
 using PoGo.RetroBot.Logic.State;
 using PoGo.RetroBot.Logic.Tasks;
 using PoGo.RetroBot.Logic.Utils;
-using NecroBot_Network_Logic;
+using RetroBot_Network_Logic;
 
 #endregion
 
