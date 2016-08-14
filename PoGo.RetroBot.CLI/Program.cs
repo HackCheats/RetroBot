@@ -14,6 +14,7 @@ using PoGo.RetroBot.Logic.Logging;
 using PoGo.RetroBot.Logic.State;
 using PoGo.RetroBot.Logic.Tasks;
 using PoGo.RetroBot.Logic.Utils;
+using NecroBot_Network_Logic;
 
 #endregion
 
@@ -121,7 +122,7 @@ namespace PoGo.RetroBot.CLI
             ProgressBar.fill(20);
 
             //Initialize Encryption-Service
-            RetroBot_Network_Logic.Encryption.InitializeEncryption();
+            Encryption.InitializeEncryption();
 
             /*SimpleSession session = new SimpleSession
             {
@@ -178,6 +179,62 @@ namespace PoGo.RetroBot.CLI
             session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             ProgressBar.fill(100);
+
+            if (settings.UseSnipeLocationServer)
+            {
+                Logger.Write("UseSnipeLocationServer is activated, risk of BAN, do you want to continue? Y/N", LogLevel.Warning);
+
+                bool boolBreak = false;
+                while (!boolBreak)
+                {
+                    string strInput = Console.ReadLine().ToLower();
+
+                    switch (strInput)
+                    {
+                        case "y":
+                            boolBreak = true;
+                            break;
+                        case "n":
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Logger.Write("UseSnipeLocationServer is activated, risk of BAN, do you want to continue? Y/N", LogLevel.Error);
+                            continue;
+                    }
+                }
+            }
+
+            if (settings.WalkingSpeedInKilometerPerHour > 50.0)
+            {
+                Logger.Write("WalkingSpeedInKilometerPerHour hight value, risk of BAN, do you want to continue? Y/N/H", LogLevel.Warning);
+
+                bool boolBreak = false;
+                while (!boolBreak)
+                {
+                    string strInput = Console.ReadLine().ToLower();
+
+                    switch (strInput)
+                    {
+                        case "y":
+                            boolBreak = true;
+                            break;
+                        case "n":
+                            Environment.Exit(0);
+                            break;
+                        case "h":
+                            Logger.Write("WalkingSpeedInKilometerPerHour Recommended Values", LogLevel.Info, ConsoleColor.Yellow);
+                            Logger.Write("Walking 3.6 Km/h", LogLevel.Info, ConsoleColor.White);
+                            Logger.Write("Jogging 10.8 Km/h", LogLevel.Info, ConsoleColor.White);
+                            Logger.Write("Ride a Bike 21.0 Km/h", LogLevel.Info, ConsoleColor.White);
+                            Logger.Write("Drive a Car 50.0 Km/h", LogLevel.Info, ConsoleColor.White);
+                            Logger.Write("WalkingSpeedInKilometerPerHour hight value, risk of BAN, do you want to continue? Y/N/H", LogLevel.Warning);
+                            continue;
+                        default:
+                            Logger.Write("WalkingSpeedInKilometerPerHour hight value, risk of BAN, do you want to continue? Y/N/H", LogLevel.Error);
+                            continue;
+                    }
+                }
+            }
 
             machine.AsyncStart(new VersionCheckState(), session);
 

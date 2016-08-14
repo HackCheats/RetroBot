@@ -892,15 +892,13 @@ namespace PoGo.RetroBot.Logic.Tasks
                         }
                     }
                 }
-                catch (SocketException)
-                {
-                    // this is spammed to often. Maybe add it to debug log later
-                }
+                catch (SocketException) { }
                 catch (Exception ex)
                 {
                     // most likely System.IO.IOException
                     session.EventDispatcher.Send(new ErrorEvent { Message = ex.ToString() });
                 }
+
                 await Task.Delay(100, cancellationToken);
             }
         }
