@@ -42,7 +42,7 @@ namespace PoGo.RetroBot.Logic.Tasks
                     PokemonList = pkmWithIv.ToList()
                 });
 
-            DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
+            await DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }
     }
 }
