@@ -15,7 +15,7 @@ namespace PoGo.RetroBot.CLI.WebSocketHandler.ActionCommands
 
         public async Task Handle(ISession session, WebSocketSession webSocketSession, dynamic message)
         {
-            await Logic.Tasks.TransferPokemonTask.Execute(session, (ulong)message.PokemonId);
+            await Logic.Tasks.TransferPokemonTask.Execute(session, (string)message.PokemonId);
         }
     }
 }

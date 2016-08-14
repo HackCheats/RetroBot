@@ -45,13 +45,8 @@ namespace PoGo.RetroBot.Logic.Tasks
                 BestPerfection = Logic.PoGoUtils.PokemonInfo.CalculatePokemonPerfection(bestPokemonOfType),
                 FamilyCandies = family.Candy_
             });
-
             await DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }
 
-        public static Task Execute(ISession session, ulong pokemonId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -30,7 +30,6 @@ namespace PoGo.RetroBot.Logic.Tasks
                 UniqueId = pokemon.Id,
                 Result = evolveResponse.Result
             });
-
             await DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }
     }
