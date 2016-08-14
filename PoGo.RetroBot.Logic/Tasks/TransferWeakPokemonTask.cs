@@ -25,12 +25,12 @@ namespace PoGo.RetroBot.Logic.Tasks
             var pokemonDatas = pokemons as IList<PokemonData> ?? pokemons.ToList();
             var pokemonsFiltered =
                 pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsNotToTransfer.Contains(pokemon.PokemonId))
-                    .ToList().OrderBy( poke => poke.Cp );
+                    .OrderBy( poke => poke.Cp );
 
             if (session.LogicSettings.KeepPokemonsThatCanEvolve)
                 pokemonsFiltered =
                     pokemonDatas.Where(pokemon => !session.LogicSettings.PokemonsToEvolve.Contains(pokemon.PokemonId))
-                        .ToList().OrderBy( poke => poke.Cp );
+                        .OrderBy( poke => poke.Cp );
 
             var orderedPokemon = pokemonsFiltered.OrderBy( poke => poke.Cp );
 
