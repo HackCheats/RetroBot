@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using GeoCoordinatePortable;
 using PoGo.RetroBot.Logic.Utils;
+using PoGo.RetroBot.Logic.Logging;
 using PokemonGo.RocketAPI;
 using POGOProtos.Networking.Responses;
 
@@ -167,8 +168,8 @@ namespace PoGo.RetroBot.Logic
             var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
 
             var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
-            LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
-            // Logger.Write($"Distance to target location: {distanceToTarget:0.##} meters. Will take {distanceToTarget/speedInMetersPerSecond:0.##} seconds!", LogLevel.Info);
+            double distanceToTarget = LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
+            Logger.Write($"Distance to target location: {distanceToTarget:0.##} meters. Will take {distanceToTarget/speedInMetersPerSecond:0.##} seconds!", LogLevel.Debug);
 
             var nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
             var nextWaypointDistance = speedInMetersPerSecond;
