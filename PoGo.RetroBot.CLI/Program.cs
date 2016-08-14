@@ -120,7 +120,9 @@ namespace PoGo.RetroBot.CLI
 
             session.Client.ApiFailure = new ApiFailureStrategy(session);
             ProgressBar.fill(20);
-            RetroBot_Network_Logic.Encryption.InitializeEncryption();
+
+            //Initialize Encryption-Service
+            Encryption.InitializeEncryption();
 
             /*SimpleSession session = new SimpleSession
             {
