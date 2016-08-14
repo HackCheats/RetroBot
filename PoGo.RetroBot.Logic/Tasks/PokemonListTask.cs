@@ -14,7 +14,7 @@ namespace PoGo.RetroBot.Logic.Tasks
 {
     public class PokemonListTask
     {
-        public static async Task Execute(ISession session)
+        public static async Task Execute(ISession session, Action<IEvent> action)
         {
             // Refresh inventory so that the player stats are fresh
             await session.Inventory.RefreshCachedInventory();
@@ -36,11 +36,10 @@ namespace PoGo.RetroBot.Logic.Tasks
                 );
             });
 
-            session.EventDispatcher.Send(
-                new PokemonListEvent
-                {
-                    PokemonList = pkmWithIv.ToList()
-                });
+            action(new PokemonListEvent
+            {
+                PokemonList = pkmWithIv.ToList()
+            });
 
             await DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }

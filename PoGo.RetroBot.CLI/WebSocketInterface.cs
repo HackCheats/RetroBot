@@ -95,7 +95,7 @@ namespace PoGo.RetroBot.CLI
 
         private async void HandleMessage(WebSocketSession session, string message)
         {
-            Models.SocketMessage msgObj;
+            Models.SocketMessage msgObj = null;
             var command = message;
             Console.WriteLine(message);
             try
@@ -105,19 +105,31 @@ namespace PoGo.RetroBot.CLI
             }
             catch { }
 
+            // Action request from UI should not be broadcasted to all client
+            Action<IEvent> action = (evt) => session.Send(Serialize(evt));
+
             switch (command)
             {
                 case "PokemonList":
-                    await PokemonListTask.Execute(_session);
+                    await PokemonListTask.Execute(_session, action);
                     break;
                 case "EggsList":
-                    await EggsListTask.Execute(_session);
+                    await EggsListTask.Execute(_session, action);
                     break;
                 case "InventoryList":
-                    await InventoryListTask.Execute(_session);
+                    await InventoryListTask.Execute(_session, action);
                     break;
                 case "PlayerStats":
-                    await PlayerStatsTask.Execute(_session);
+                    await PlayerStatsTask.Execute(_session, action);
+                    break;
+                case "GetPokemonSettings":
+                    await PokemonSettingsTask.Execute(_session, action);
+                    break;
+                case "TransferPokemon":
+                    await TransferPokemonTask.Execute(_session, msgObj?.Data);
+                    break;
+                case "EvolvePokemon":
+                    await EvolveSpecificPokemonTask.Execute(_session, msgObj?.Data);
                     break;
             }
 

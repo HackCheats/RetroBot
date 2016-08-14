@@ -14,7 +14,7 @@ namespace PoGo.RetroBot.Logic.Tasks
 {
     public class EggsListTask
     {
-        public static async Task Execute(ISession session)
+        public static async Task Execute(ISession session, Action<IEvent> action)
         {
             // Refresh inventory so that the player stats are fresh
             await session.Inventory.RefreshCachedInventory();
@@ -35,7 +35,7 @@ namespace PoGo.RetroBot.Logic.Tasks
                 .OrderBy(x => x.EggKmWalkedTarget - x.EggKmWalkedStart)
                 .ToList();
 
-            session.EventDispatcher.Send(
+            action(
                 new EggsListEvent
                 {
                     PlayerKmWalked = kmWalked,

@@ -1,28 +1,26 @@
 #region using directives
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using PoGo.RetroBot.Logic.Event;
+using PoGo.RetroBot.Logic.PoGoUtils;
 using PoGo.RetroBot.Logic.State;
-using POGOProtos.Inventory.Item;
-using System;
 
 #endregion
 
 namespace PoGo.RetroBot.Logic.Tasks
 {
-    public class PlayerStatsTask
+    public class PokemonSettingsTask
     {
         public static async Task Execute(ISession session, Action<IEvent> action)
         {
-            var PlayersProfile = (await session.Inventory.GetPlayerStats())
-                .ToList();
-            
-            action(
-                new PlayerStatsEvent
-                {
-                    PlayerStats = PlayersProfile,
-                });
+            var settings = await session.Inventory.GetPokemonSettings();
+
+            action(new PokemonSettingsEvent
+            {
+                Data = settings.ToList()
+            });
 
             await DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 0);
         }

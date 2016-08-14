@@ -1,18 +1,19 @@
-﻿#region using directives
-
-using System.Linq;
-using System.Threading.Tasks;
-using PoGo.RetroBot.Logic.State;
+﻿using PoGo.RetroBot.Logic.State;
 using PoGo.RetroBot.Logic.Utils;
-
-#endregion
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PoGo.RetroBot.Logic.Tasks
 {
     public class TransferPokemonTask
     {
-        public static async Task Execute(ISession session, ulong pokemonId)
+        public static async Task Execute(ISession session, string pokemonId)
         {
+            var id = ulong.Parse(pokemonId);
+
             var all = await session.Inventory.GetPokemons();
             var pokemons = all.OrderBy(x => x.Cp).ThenBy(n => n.StaminaMax);
             var pokemon = pokemons.FirstOrDefault(p => p.Id == pokemonId);
