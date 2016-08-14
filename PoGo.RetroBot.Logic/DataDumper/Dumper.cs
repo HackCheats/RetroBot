@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using PoGo.RetroBot.Logic.State;
 using System.Globalization;
+using System.Text;
 
 #endregion
 
@@ -61,26 +62,26 @@ namespace PoGo.RetroBot.Logic.DataDumper
                     File.AppendText(path)
                 )
             {
-                string strData = "";
+                var sb = new StringBuilder();
                 foreach (string str in data)
                 {
-                    if (strData != "")
-                        strData += listSeparator;
+                    if (sb.Length != 0)
+                        sb.Append(listSeparator);
 
                     if (str.Contains("\""))
                     {
-                        strData += string.Format("\"{0}\"", str.Replace("\"", "\"\""));
+                        sb.AppendFormat("\"{0}\"", str.Replace("\"", "\"\""));
                     }
                     else if (str.Contains(listSeparator))
                     {
-                        strData += string.Format("\"{0}\"", str);
+                        sb.AppendFormat("\"{0}\"", str);
                     }
                     else
                     {
-                        strData += str;
+                        sb.Append(str);
                     }
                 }
-                dumpFile.WriteLine(strData);
+                dumpFile.WriteLine(sb.ToString());
                 dumpFile.Flush();
             }
         }
