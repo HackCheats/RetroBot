@@ -16,7 +16,7 @@ namespace PoGo.RetroBot.Logic.Tasks
 
             var all = await session.Inventory.GetPokemons();
             var pokemons = all.OrderBy(x => x.Cp).ThenBy(n => n.StaminaMax);
-            var pokemon = pokemons.FirstOrDefault(p => p.Id == pokemonId);
+            var pokemon = pokemons.FirstOrDefault(p => p.Id == id);
 
             if (pokemon == null) return;
 
