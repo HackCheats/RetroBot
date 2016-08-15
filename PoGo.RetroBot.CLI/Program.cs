@@ -14,7 +14,6 @@ using PoGo.RetroBot.Logic.Logging;
 using PoGo.RetroBot.Logic.State;
 using PoGo.RetroBot.Logic.Tasks;
 using PoGo.RetroBot.Logic.Utils;
-using RetroBot_Network_Logic;
 
 #endregion
 
@@ -120,9 +119,6 @@ namespace PoGo.RetroBot.CLI
 
             session.Client.ApiFailure = new ApiFailureStrategy(session);
             ProgressBar.fill(20);
-
-            //Initialize Encryption-Service
-            Encryption.InitializeEncryption();
 
             /*SimpleSession session = new SimpleSession
             {
