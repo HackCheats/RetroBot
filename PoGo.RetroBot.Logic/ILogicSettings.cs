@@ -141,7 +141,6 @@ namespace PoGo.RetroBot.Logic
         double ForceExcellentThrowOverIv { get; }
         int ForceGreatThrowOverCp { get; }
         int ForceExcellentThrowOverCp { get; }
-
         int DelayBetweenPokemonCatch { get; }
         bool AutomaticallyLevelUpPokemon { get; }
         bool OnlyUpgradeFavorites { get; }
@@ -155,12 +154,9 @@ namespace PoGo.RetroBot.Logic
         int KeepMinDuplicatePokemon { get; }
         bool PrioritizeIvOverCp { get; }
         int AmountOfTimesToUpgradeLoop { get; }
-
         int GetMinStarDustForLevelUp { get; }
         bool UseLuckyEggConstantly { get; }
         int MaxBerriesToUsePerPokemon { get; }
-        bool StopBotMaxCathFlee { get; }
-        int MaxCatchFleePerHours { get; }
         bool UseIncenseConstantly { get; }
         int UseBerriesMinCp { get; }
         float UseBerriesMinIv { get; }
@@ -212,7 +208,6 @@ namespace PoGo.RetroBot.Logic
         int TotalAmountOfPotionsToKeep { get; }
         int TotalAmountOfRevivesToKeep { get; }
         int TotalAmountOfBerriesToKeep { get; }
-
         bool DetailedCountsBeforeRecycling { get; }
         bool VerboseRecycling { get; }
         double RecycleInventoryAtUsagePercentage { get; }

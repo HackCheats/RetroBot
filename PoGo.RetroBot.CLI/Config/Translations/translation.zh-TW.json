@@ -695,7 +695,11 @@
     },
     {
       "Key": "HumanWalkingVariant",
-      "Value": "Variant Walking: Has been changed, {0:n2} Km/h to {1:n2} Km/h"
+      "Value": "行走速度改變，從 {0:n2} Km/h 變更為 {1:n2} Km/h"
+    },
+    {
+      "Key": "AccountBanned",
+      "Value": "Probably Permanent Ban!"
     }
   ],
   "PokemonStrings": [

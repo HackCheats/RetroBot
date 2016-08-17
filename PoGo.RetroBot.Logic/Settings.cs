@@ -315,10 +315,6 @@ namespace PoGo.RetroBot.Logic
         public bool CatchPokemon;
         [DefaultValue(3)]
         public int MaxBerriesToUsePerPokemon;
-        [DefaultValue(true)]
-        public bool StopBotMaxCathFlee;
-        [DefaultValue(40)]
-        public int MaxCatchFleePerHours;
         //powerup
         [DefaultValue(false)]
         public bool AutomaticallyLevelUpPokemon;
@@ -345,7 +341,7 @@ namespace PoGo.RetroBot.Logic
         public double DefaultLatitude;
         [DefaultValue(-73.968286)]
         public double DefaultLongitude;
-        [DefaultValue(4.6)]
+        [DefaultValue(4.16)]
         public double WalkingSpeedInKilometerPerHour;
         [DefaultValue(true)]
         public bool UseWalkingSpeedVariant;
@@ -1390,8 +1386,6 @@ namespace PoGo.RetroBot.Logic
         public bool TransferWeakPokemon => _settings.TransferWeakPokemon;
         public bool DisableHumanWalking => _settings.DisableHumanWalking;
         public int MaxBerriesToUsePerPokemon => _settings.MaxBerriesToUsePerPokemon;
-        public bool StopBotMaxCathFlee => _settings.StopBotMaxCathFlee;
-        public int MaxCatchFleePerHours => _settings.MaxCatchFleePerHours;
         public float KeepMinIvPercentage => _settings.KeepMinIvPercentage;
         public string KeepMinOperator => _settings.KeepMinOperator;
         public int KeepMinCp => _settings.KeepMinCp;
