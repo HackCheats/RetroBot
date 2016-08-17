@@ -3,7 +3,7 @@
 <!-- title -->
 <h1>RetroBot - a Pokemon Go Bot (personal) based on RocketAPI</h1>
 <br/>
-## This repository is initially based on necrobot [NecroBot] (https://github.com/NECROBOTIO/NecroBot) (This repository is no longer operational)
+## This repository is initially based on necrobot [NecroBot](https://github.com/NECROBOTIO/NecroBot) (This repository is no longer operational)
 
 ![alt text][1.1] <strong><em> The contents of this repo are a proof of concept and are for educational use only </em></strong> ![alt text][1.1]
 <br>
@@ -12,11 +12,11 @@
 
 <h2><a name="features">Features</a></h2>
 
- - [PTC Login / Google]
+ - [PTC/Google Login]
  - [Get Map Objects and Inventory]
- - [Search for gyms/pokestops/spawns]
+ - [Search for pokestops/spawns]
  - [Farm pokestops]
- - [Farm all Pokemon in neighbourhood]
+ - [Farm all Pokemon in neighborhood]
  - [Throw Berries/use best pokeball]
  - [Transfers duplicate pokemons]
  - [Evolve all pokemons]
@@ -41,7 +41,7 @@ LineWalker - [POGOProtos-0.31.0](https://github.com/Linewalker/POGOProtos-0.31.0
 
 AeonLucid - [POGOProtos](https://github.com/AeonLucid/POGOProtos)
 
-NECROBOTIO - [NecroBot] (https://github.com/NECROBOTIO/NecroBot) (This repository is no longer operational)
+NECROBOTIO - [NecroBot](https://github.com/NECROBOTIO/NecroBot) (This repository is no longer operational)
 
 <br/>
 Thanks to everyone who volunteered by contributing via Pull Requests!

@@ -75,8 +75,8 @@ namespace PoGo.RetroBot.Logic
                     {
                         if (millisecondsUntilVariant >= SpeedVariantSec)
                         {
-                            var randomMin = session.LogicSettings.WalkingSpeedInKilometerPerHour - 1.2;
-                            var randomMax = session.LogicSettings.WalkingSpeedInKilometerPerHour + 1.2;
+                            var randomMin = session.LogicSettings.WalkingSpeedInKilometerPerHour - session.LogicSettings.RandomMinWalkingSpeed;
+                            var randomMax = session.LogicSettings.WalkingSpeedInKilometerPerHour + session.LogicSettings.RandomMaxWalkingSpeed;
                             var RandomWalkSpeed = rw.NextDouble() * (randomMax - randomMin) + randomMin;
 
                             session.EventDispatcher.Send(new HumanWalkingEvent
@@ -228,8 +228,8 @@ namespace PoGo.RetroBot.Logic
                 {
                     if (millisecondsUntilVariant >= SpeedVariantSec)
                     {
-                        var randomMin = session.LogicSettings.WalkingSpeedInKilometerPerHour - 1.2;
-                        var randomMax = session.LogicSettings.WalkingSpeedInKilometerPerHour + 1.2;
+                        var randomMin = session.LogicSettings.WalkingSpeedInKilometerPerHour - 3.2;
+                        var randomMax = session.LogicSettings.WalkingSpeedInKilometerPerHour + 3.2;
                         var RandomWalkSpeed = rw.NextDouble() * (randomMax - randomMin) + randomMin;
 
                         session.EventDispatcher.Send(new HumanWalkingEvent

@@ -293,6 +293,8 @@ namespace PoGo.RetroBot.Logic
         public double DefaultLatitude = 40.785092;
         public double DefaultLongitude = -73.968286;
         public double WalkingSpeedInKilometerPerHour = 4.16;
+        public double RandomMinWalkingSpeede = 1.2;
+        public double RandomMaxWalkingSpeed = 1.2;
         public bool UseWalkingSpeedVariant = true;
         public bool ShowVariantWalking = true;
         public bool RandomlyPauseAtStops = true;
@@ -319,10 +321,10 @@ namespace PoGo.RetroBot.Logic
         public string SnipeLocationServer = "localhost";
         public int SnipeLocationServerPort = 16969;
         public bool GetSniperInfoFromPokezz;
-        public bool GetOnlyVerifiedSniperInfoFromPokezz = true;
-        public bool GetSniperInfoFromPokeSnipers = true;
-        public bool GetSniperInfoFromPokeWatchers = true;
-        public bool GetSniperInfoFromSkiplagged = true;
+        public bool GetOnlyVerifiedSniperInfoFromPokezz = false;
+        public bool GetSniperInfoFromPokeSnipers = false;
+        public bool GetSniperInfoFromPokeWatchers = false;
+        public bool GetSniperInfoFromSkiplagged = false;
         public int MinPokeballsToSnipe = 20;
         public int MinPokeballsWhileSnipe = 0;
         public int MinDelayBetweenSnipes = 60000;
@@ -440,7 +442,7 @@ namespace PoGo.RetroBot.Logic
     public class CustomCatchConfig
     {
         public bool EnableHumanizedThrows = true;
-        public bool EnableMissedThrows;
+        public bool EnableMissedThrows = true;
         public int ThrowMissPercentage = 25;
         public int NiceThrowChance = 40;
         public int GreatThrowChance = 30;
