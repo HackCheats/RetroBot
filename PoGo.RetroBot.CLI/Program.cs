@@ -27,6 +27,7 @@ namespace PoGo.RetroBot.CLI
 
         private static void Main(string[] args)
         {
+
             string strCulture = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName;
 
             var culture = CultureInfo.CreateSpecificCulture( "en" );
