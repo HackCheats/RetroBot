@@ -175,6 +175,7 @@ namespace PoGo.RetroBot.Logic.Tasks
                                 await UseNearbyPokestopsTask.Execute(session, cancellationToken);
                                 return true;
                             },
+                            session.LogicSettings.UseWalkingSpeedVariant,
                             cancellationToken
                             );
 

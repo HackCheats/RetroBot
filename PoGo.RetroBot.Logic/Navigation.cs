@@ -18,7 +18,7 @@ namespace PoGo.RetroBot.Logic
 
     public class Navigation
     {
-        private const double SpeedDownTo = 10/3.6;
+        private const double SpeedDownTo = 10 / 3.6;
         private readonly Client _client;
 
         public Navigation(Client client)
@@ -28,12 +28,15 @@ namespace PoGo.RetroBot.Logic
 
         public async Task<PlayerUpdateResponse> Move(GeoCoordinate targetLocation,
             double walkingSpeedInKilometersPerHour, Func<Task<bool>> functionExecutedWhileWalking,
-            CancellationToken cancellationToken, bool disableHumanLikeWalking)
+            CancellationToken cancellationToken, bool disableHumanLikeWalking, bool useWalkingSpeedVariant)
         {
             cancellationToken.ThrowIfCancellationRequested();
             if (!disableHumanLikeWalking)
             {
-                var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
+                var rw = new Random();
+                double SpeedVariantSec = rw.Next(1000, 10000);
+
+                var speedInMetersPerSecond = walkingSpeedInKilometersPerHour / 3.6;
 
                 var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
 
@@ -43,7 +46,8 @@ namespace PoGo.RetroBot.Logic
 
                 //Initial walking
                 var requestSendDateTime = DateTime.Now;
-                var result = 
+                var requestVariantDateTime = DateTime.Now;
+                var result =
                     await
                         _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude,
                             waypoint.Altitude);
@@ -56,6 +60,8 @@ namespace PoGo.RetroBot.Logic
 
                     var millisecondsUntilGetUpdatePlayerLocationResponse =
                         (DateTime.Now - requestSendDateTime).TotalMilliseconds;
+                    var millisecondsUntilVariant =
+                        (DateTime.Now - requestVariantDateTime).TotalMilliseconds;
 
                     sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
                     var currentDistanceToTarget = LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
@@ -69,8 +75,21 @@ namespace PoGo.RetroBot.Logic
                         }
                     }
 
+                    if (useWalkingSpeedVariant)
+                    {
+                        if (millisecondsUntilVariant >= SpeedVariantSec)
+                        {
+                            var randomMin = walkingSpeedInKilometersPerHour - 1.2;
+                            var randomMax = walkingSpeedInKilometersPerHour + 1.2;
+                            var RandomWalkSpeed = rw.NextDouble() * (randomMax - randomMin) + randomMin;
+
+                            speedInMetersPerSecond = RandomWalkSpeed / 3.6;
+                            SpeedVariantSec += rw.Next(5000, 15000);
+                        }
+                    }
+
                     nextWaypointDistance = Math.Min(currentDistanceToTarget,
-                        millisecondsUntilGetUpdatePlayerLocationResponse/1000*speedInMetersPerSecond);
+                        millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                     nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
                     waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 
@@ -81,7 +100,6 @@ namespace PoGo.RetroBot.Logic
                                 waypoint.Altitude);
 
                     UpdatePositionEvent?.Invoke(waypoint.Latitude, waypoint.Longitude);
-
 
                     if (functionExecutedWhileWalking != null)
                         await functionExecutedWhileWalking(); // look for pokemon
@@ -94,7 +112,7 @@ namespace PoGo.RetroBot.Logic
             var dist = LocationUtils.CalculateDistanceInMeters(curLocation, targetLocation);
             if (dist >= 100)
             {
-                var nextWaypointDistance = dist*70/100;
+                var nextWaypointDistance = dist * 70 / 100;
                 var nextWaypointBearing = LocationUtils.DegreeBearing(curLocation, targetLocation);
 
                 var waypoint = LocationUtils.CreateWaypoint(curLocation, nextWaypointDistance, nextWaypointBearing);
@@ -119,7 +137,7 @@ namespace PoGo.RetroBot.Logic
                     dist = LocationUtils.CalculateDistanceInMeters(curLocation, targetLocation);
                     if (dist >= 100)
                     {
-                        nextWaypointDistance = dist*70/100;
+                        nextWaypointDistance = dist * 70 / 100;
                     }
                     else
                     {
@@ -146,7 +164,7 @@ namespace PoGo.RetroBot.Logic
                 var result =
                     await
                         _client.Player.UpdatePlayerLocation(targetLocation.Latitude, targetLocation.Longitude,
-                            LocationUtils.getElevation(targetLocation.Latitude,targetLocation.Longitude));
+                            LocationUtils.getElevation(targetLocation.Latitude, targetLocation.Longitude));
                 UpdatePositionEvent?.Invoke(targetLocation.Latitude, targetLocation.Longitude);
                 if (functionExecutedWhileWalking != null)
                     await functionExecutedWhileWalking(); // look for pokemon
@@ -156,16 +174,19 @@ namespace PoGo.RetroBot.Logic
 
         public async Task<PlayerUpdateResponse> HumanPathWalking(GpxReader.Trkpt trk,
             double walkingSpeedInKilometersPerHour, Func<Task<bool>> functionExecutedWhileWalking,
-            CancellationToken cancellationToken)
+            bool useWalkingSpeedVariant, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
             //PlayerUpdateResponse result = null;
 
+            var rw = new Random();
+            double SpeedVariantSec = rw.Next(1000, 10000);
+
             var targetLocation = new GeoCoordinate(Convert.ToDouble(trk.Lat, CultureInfo.InvariantCulture),
                 Convert.ToDouble(trk.Lon, CultureInfo.InvariantCulture));
 
-            var speedInMetersPerSecond = walkingSpeedInKilometersPerHour/3.6;
+            var speedInMetersPerSecond = walkingSpeedInKilometersPerHour / 3.6;
 
             var sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
             double distanceToTarget = LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
@@ -179,6 +200,7 @@ namespace PoGo.RetroBot.Logic
             //Initial walking
 
             var requestSendDateTime = DateTime.Now;
+            var requestVariantDateTime = DateTime.Now;
             var result =
                 await
                     _client.Player.UpdatePlayerLocation(waypoint.Latitude, waypoint.Longitude, waypoint.Altitude);
@@ -191,6 +213,8 @@ namespace PoGo.RetroBot.Logic
 
                 var millisecondsUntilGetUpdatePlayerLocationResponse =
                     (DateTime.Now - requestSendDateTime).TotalMilliseconds;
+                var millisecondsUntilVariant =
+                        (DateTime.Now - requestVariantDateTime).TotalMilliseconds;
 
                 sourceLocation = new GeoCoordinate(_client.CurrentLatitude, _client.CurrentLongitude);
                 var currentDistanceToTarget = LocationUtils.CalculateDistanceInMeters(sourceLocation, targetLocation);
@@ -204,8 +228,21 @@ namespace PoGo.RetroBot.Logic
                 //    }
                 //}
 
+                if (useWalkingSpeedVariantuseWalkingVariant)
+                {
+                    if (millisecondsUntilVariant >= SpeedVariantSec)
+                    {
+                        var randomMin = (int)(walkingSpeedInKilometersPerHour - 1.2);
+                        var randomMax = (int)(walkingSpeedInKilometersPerHour + 1.2);
+                        var RandomWalkSpeed = rw.NextDouble() * (randomMax - randomMin) + randomMin;
+
+                        speedInMetersPerSecond = RandomWalkSpeed / 3.6;
+                        SpeedVariantSec += rw.Next(5000, 15000);
+                    }
+                }
+
                 nextWaypointDistance = Math.Min(currentDistanceToTarget,
-                    millisecondsUntilGetUpdatePlayerLocationResponse/1000*speedInMetersPerSecond);
+                    millisecondsUntilGetUpdatePlayerLocationResponse / 1000 * speedInMetersPerSecond);
                 nextWaypointBearing = LocationUtils.DegreeBearing(sourceLocation, targetLocation);
                 waypoint = LocationUtils.CreateWaypoint(sourceLocation, nextWaypointDistance, nextWaypointBearing);
 

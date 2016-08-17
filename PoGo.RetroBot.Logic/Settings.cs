@@ -344,6 +344,8 @@ namespace PoGo.RetroBot.Logic
         [DefaultValue(3.6)]
         public double WalkingSpeedInKilometerPerHour;
         [DefaultValue(true)]
+        public bool UseWalkingSpeedVariant;
+        [DefaultValue(true)]
         public bool RandomlyPauseAtStops;
         [DefaultValue(10)]
         public int MaxSpawnLocationOffset;
@@ -1403,6 +1405,7 @@ namespace PoGo.RetroBot.Logic
         public float UpgradePokemonCpMinimum => _settings.UpgradePokemonCpMinimum;
         public string UpgradePokemonMinimumStatsOperator => _settings.UpgradePokemonMinimumStatsOperator;
         public double WalkingSpeedInKilometerPerHour => _settings.WalkingSpeedInKilometerPerHour;
+        public bool UseWalkingSpeedVariant => _settings.UseWalkingSpeedVariant;
         public bool FastSoftBanBypass => _settings.FastSoftBanBypass;
         public bool EvolveAllPokemonWithEnoughCandy => _settings.EvolveAllPokemonWithEnoughCandy;
         public bool KeepPokemonsThatCanEvolve => _settings.KeepPokemonsThatCanEvolve;

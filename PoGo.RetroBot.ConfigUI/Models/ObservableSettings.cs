@@ -88,6 +88,14 @@ namespace PoGo.RetroBot.ConfigUI.Models
         public static readonly DependencyProperty WalkingSpeedInKilometerPerHourProperty =
             DependencyProperty.Register("WalkingSpeedInKilometerPerHour", typeof(double), typeof(ObservableSettings), new PropertyMetadata(0.0));
 
+        public bool UseWalkingSpeedVariant
+        {
+            get { return (bool)GetValue(UseWalkingSpeedVariantProperty); }
+            set { SetValue(UseWalkingSpeedVariantProperty, value); }
+        }
+        public static readonly DependencyProperty UseWalkingSpeedVariantProperty =
+            DependencyProperty.Register("UseWalkingSpeedVariant", typeof(bool), typeof(ObservableSettings), new PropertyMetadata(0.0));
+
         public int MaxSpawnLocationOffset
         {
             get { return (int)GetValue(MaxSpawnLocationOffsetProperty); }
@@ -1412,6 +1420,7 @@ namespace PoGo.RetroBot.ConfigUI.Models
             res.DefaultLongitude = set.DefaultLongitude;
             res.MaxTravelDistanceInMeters = set.MaxTravelDistanceInMeters;
             res.WalkingSpeedInKilometerPerHour = set.WalkingSpeedInKilometerPerHour;
+            res.UseWalkingSpeedVariant = set.UseWalkingSpeedVariant;
             res.MaxSpawnLocationOffset = set.MaxSpawnLocationOffset;
             res.DelayBetweenPlayerActions = set.DelayBetweenPlayerActions;
             res.DelayBetweenPokemonCatch = set.DelayBetweenPokemonCatch;
@@ -1590,6 +1599,7 @@ namespace PoGo.RetroBot.ConfigUI.Models
             gs.DefaultLongitude = DefaultLongitude;
             gs.MaxTravelDistanceInMeters = MaxTravelDistanceInMeters;
             gs.WalkingSpeedInKilometerPerHour = WalkingSpeedInKilometerPerHour;
+            gs.UseWalkingSpeedVariant = UseWalkingSpeedVariant;
             gs.MaxSpawnLocationOffset = MaxSpawnLocationOffset;
             gs.DelayBetweenPlayerActions = DelayBetweenPlayerActions;
             gs.DelayBetweenPokemonCatch = DelayBetweenPokemonCatch;

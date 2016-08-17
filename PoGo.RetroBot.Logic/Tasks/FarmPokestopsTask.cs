@@ -45,7 +45,8 @@ namespace PoGo.RetroBot.Logic.Tasks
                 
                 await session.Navigation.Move(
                     new GeoCoordinate(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude, LocationUtils.getElevation(session.Settings.DefaultLatitude, session.Settings.DefaultLongitude)),
-                    session.LogicSettings.WalkingSpeedInKilometerPerHour, null, cancellationToken, session.LogicSettings.DisableHumanWalking);
+                    session.LogicSettings.WalkingSpeedInKilometerPerHour, null, cancellationToken, session.LogicSettings.DisableHumanWalking,
+                    session.LogicSettings.UseWalkingSpeedVariant);
             }
 
             var pokestopList = await GetPokeStops(session);
@@ -107,7 +108,8 @@ namespace PoGo.RetroBot.Logic.Tasks
                         //Catch Incense Pokemon
                         await CatchIncensePokemonsTask.Execute(session, cancellationToken);
                         return true;
-                    }, cancellationToken, session.LogicSettings.DisableHumanWalking);
+                    }, cancellationToken, session.LogicSettings.DisableHumanWalking,
+                    session.LogicSettings.UseWalkingSpeedVariant);
 
                 //Catch Lure Pokemon
                 if (pokeStop.LureInfo != null)

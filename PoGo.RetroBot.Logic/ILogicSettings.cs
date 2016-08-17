@@ -112,6 +112,7 @@ namespace PoGo.RetroBot.Logic
         bool UseKeepMinLvl { get; }
         string KeepMinOperator { get; }
         double WalkingSpeedInKilometerPerHour { get; }
+        bool UseWalkingSpeedVariant { get; }
         bool RandomlyPauseAtStops { get; }
         bool FastSoftBanBypass { get; }
         bool EvolveAllPokemonWithEnoughCandy { get; }
